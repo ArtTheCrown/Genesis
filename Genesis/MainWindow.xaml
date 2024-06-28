@@ -14,7 +14,7 @@
                 <GradientStop Color="#FF999999" Offset="0.67"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid>
+        <Grid x:Name="_Apps" Visibility="Collapsed">
             <Border Height="20" VerticalAlignment="Top" Panel.ZIndex="2">
                 <Border.Background>
                     <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1.2,0">
@@ -177,6 +177,23 @@
                     </Border>
                 </StackPanel>
             </Grid>
+        </Grid>
+        <Grid x:Name="_login_register" Background="#FF2D2D2D">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
+                    <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
+                    <TextBlock Text="Username*" Margin="0,55,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="271"/>
+                    <TextBox x:Name="UsernameTextBox" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16"/>
+                    <TextBlock Text="Password*" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Margin="0,12,0,0" Width="271"/>
+                    <PasswordBox x:Name="PasswordTextBox"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" />
+                    <Border x:Name="SubmitButton" MouseLeftButtonDown="SubmitButton_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1">
+                        <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
+                    </Border>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Window>

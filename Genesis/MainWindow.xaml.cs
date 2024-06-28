@@ -23,16 +23,6 @@ namespace Genesis
             InitializeComponent();
         }
 
-        private async void Submit_Click(object sender, RoutedEventArgs e)
-        {
-            //var response = await Program.Register(username.Text, password.Text);
-
-            //if (response.Item1) status.Text = response.Item2?.Registration?.status;
-            //else status.Text = "Failure";
-            
-            MaximizeWithoutCoveringTaskbar();
-        }
-
         private void MaximizeWithoutCoveringTaskbar()
         {
             // Get the working area of the screen (excluding the taskbar)
@@ -48,6 +38,11 @@ namespace Genesis
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MaximizeWithoutCoveringTaskbar();
+        }
+
+        private void SubmitButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
