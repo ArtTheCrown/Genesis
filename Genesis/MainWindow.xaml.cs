@@ -9,6 +9,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace Genesis
@@ -42,6 +46,29 @@ namespace Genesis
 
         private void SubmitButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
+        }
+
+        private void LoginFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Visible;
+            RegisterForm.Visibility = Visibility.Collapsed;
+        }
+
+        private void RegisterFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Collapsed;
+            RegisterForm.Visibility = Visibility.Visible;
+        }
+
+        private void LoginButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
