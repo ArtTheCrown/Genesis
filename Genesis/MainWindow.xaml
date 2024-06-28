@@ -2,19 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genesis"
         mc:Ignorable="d"
         Title="Genesis" Height="700" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="White"/>
-                <GradientStop Color="#FF999999" Offset="0.67"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Grid x:Name="_Apps" Visibility="Collapsed">
+        <Grid x:Name="_Apps" Visibility="Visible">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="#FF999999" Offset="0.67"/>
+                </LinearGradientBrush>
+            </Grid.Background>
             <Border Height="20" VerticalAlignment="Top" Panel.ZIndex="2">
                 <Border.Background>
                     <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1.2,0">
@@ -178,19 +177,36 @@
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="_login_register" Background="#FF2D2D2D">
-            <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
-                <Border.Effect>
-                    <DropShadowEffect/>
-                </Border.Effect>
+        <Grid x:Name="_login_register" Visibility="Collapsed">
+            <Border x:Name="LoginForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
                     <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
                     <TextBlock Text="Username*" Margin="0,55,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="271"/>
-                    <TextBox x:Name="UsernameTextBox" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16"/>
+                    <TextBox x:Name="UsernameTextBox" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0"/>
                     <TextBlock Text="Password*" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Margin="0,12,0,0" Width="271"/>
-                    <PasswordBox x:Name="PasswordTextBox"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" />
-                    <Border x:Name="SubmitButton" MouseLeftButtonDown="SubmitButton_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1">
+                    <PasswordBox x:Name="PasswordTextBox"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" />
+                    <Border x:Name="SubmitButton" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1">
                         <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
+                    </Border>
+                    <TextBlock Text="Don't have an account yet?" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,25,0,0" FontSize="14" FontWeight="Bold"/>
+                    <Border x:Name="RegisterFormButton" Height="32" Width="67" >
+                        <TextBlock Text="Register" FontFamily="Cascadia Code" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FF6D0000"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <Border x:Name="RegisterForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
+                    <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
+                    <TextBlock Text="Username*" Margin="0,55,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="271"/>
+                    <TextBox x:Name="RegisterUsername" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0"/>
+                    <TextBlock Text="Password*" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Margin="0,12,0,0" Width="271"/>
+                    <PasswordBox x:Name="RegisterPassword"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" />
+                    <Border x:Name="RegisterSubmit" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1">
+                        <TextBlock Text="Register" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
+                    </Border>
+                    <TextBlock Text="Already have an Account?" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,25,0,0" FontSize="14" FontWeight="Bold"/>
+                    <Border x:Name="LoginFormButton" Height="32" Width="67" >
+                        <TextBlock Text="Login" FontFamily="Cascadia Code" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FF6D0000"/>
                     </Border>
                 </StackPanel>
             </Border>

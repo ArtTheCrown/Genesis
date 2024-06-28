@@ -42,7 +42,6 @@ namespace Genesis
 
         private void SubmitButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
         }
     }
 }
