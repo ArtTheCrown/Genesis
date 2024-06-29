@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\Dual Ring%401x-1.0s-200px-200px.png" />
+    <None Remove="Assets\Images\Spinner%401x-0.9s-200px-200px.gif" />
     <None Remove="genesis.png" />
   </ItemGroup>
 
@@ -24,7 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\Dual Ring@1x-1.0s-200px-200px.png" />
     <Resource Include="Assets\Images\genesis.png" />
+    <Resource Include="Assets\Images\Spinner@1x-0.9s-200px-200px.gif" />
   </ItemGroup>
 
 </Project>

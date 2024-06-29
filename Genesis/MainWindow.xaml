@@ -6,177 +6,187 @@
         xmlns:local="clr-namespace:Genesis"
         mc:Ignorable="d"
         Title="Genesis" Height="700" Width="1280" AllowsTransparency="True" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="{x:Null}">
+    <Window.Resources>
+        <Storyboard x:Key="RotateStoryboard" RepeatBehavior="Forever">
+            <DoubleAnimation
+                Storyboard.TargetName="RotatingBorder"
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                From="0" To="360" Duration="0:0:2" />
+        </Storyboard>
+    </Window.Resources>
     <Grid>
-        <Grid x:Name="_Apps" Visibility="Collapsed">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="White"/>
-                    <GradientStop Color="#FF999999" Offset="0.67"/>
-                </LinearGradientBrush>
-            </Grid.Background>
-            <Border Height="20" VerticalAlignment="Top" Panel.ZIndex="2">
-                <Border.Background>
-                    <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1.2,0">
-                        <GradientStop Color="Black" Offset="0.609"/>
-                        <GradientStop Color="#00F2F2F2" Offset="0.324"/>
+        <Border x:Name="_Apps" Visibility="Collapsed" BorderBrush="Black" BorderThickness="0,0,1,1">
+            <Grid>
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FF999999" Offset="0.67"/>
                     </LinearGradientBrush>
-                </Border.Background>
-                <StackPanel Width="80" Height="15" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
-                    <Border Background="#FFFF7C7C" Width="15" Margin="2,0,5,0">
+                </Grid.Background>
+                <Border Height="20" VerticalAlignment="Top" Panel.ZIndex="2">
+                    <Border.Background>
+                        <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0,0" EndPoint="1.2,0">
+                            <GradientStop Color="Black" Offset="0.609"/>
+                            <GradientStop Color="#00F2F2F2" Offset="0.324"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel Width="80" Height="15" Orientation="Horizontal" HorizontalAlignment="Right" FlowDirection="RightToLeft">
+                        <Border Background="#FFFF7C7C" Width="15" Margin="2,0,5,0">
 
-                    </Border>
-                    <Border MouseLeftButtonDown="Border_MouseLeftButtonDown" Margin="0,0,5,0" Background="#FF5B92FF" Width="15">
-
-                    </Border>
-                    <Border Width="15" Background="#FF8CFF88">
-
-                    </Border>
-                </StackPanel>
-            </Border>
-            <Grid Width="200" HorizontalAlignment="Left">
-                <StackPanel Width="200" Height="250" VerticalAlignment="Top" Margin="0,30,0,0">
-                    <Border x:Name="_profilePicture" Width="150" Height="150" CornerRadius="3,3,3,3" BorderThickness="3,3,3,3" BorderBrush="Black">
-                        <Border.Background>
-                            <ImageBrush ImageSource="/Assets/Images/genesis.png"/>
-                        </Border.Background>
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="10"/>
-                        </Border.Effect>
-                    </Border>
-
-                    <TextBlock x:Name="_displayName" Text="Fallen" HorizontalAlignment="Left" FontSize="24" FontFamily="Bahnschrift" Margin="36,8,0,0" FontWeight="Bold"/>
-                    <TextBlock x:Name="_username" Text="@ArtTheCrown" HorizontalAlignment="Left" FontSize="11" FontFamily="Bahnschrift" Margin="34,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
-                </StackPanel>
-                <StackPanel Width="146" Height="276" VerticalAlignment="Bottom">
-                    <StackPanel.Effect>
-                        <DropShadowEffect/>
-                    </StackPanel.Effect>
-                    <Border Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
-                        <TextBlock Text="Account" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
-                    </Border>
-                    <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
-                        <TextBlock Text="Friends" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" Margin="30,0,0,0" FontWeight="Bold"/>
-                    </Border>
-                    <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
-                        <TextBlock Text="Contact" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
-                    </Border>
-                    <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
-                        <TextBlock Text="Settings" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
-                    </Border>
-                    <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
-                        <TextBlock Text="Report" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
-                    </Border>
-                </StackPanel>
-            </Grid>
-            <Grid Width="1080" HorizontalAlignment="Right">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel HorizontalAlignment="Left" Width="430" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                        <StackPanel Orientation="Horizontal" Margin="30,30,0,0">
-                            <Border Width="100" Height="100" CornerRadius="3,3,3,3" BorderThickness="3,3,3,3" BorderBrush="Black" Background="#FF6D6D6D">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="16" ShadowDepth="5"/>
-                                </Border.Effect>
-                                <TextBlock Text="*Preview*" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Bahnschrift" FontWeight="Bold" FontStyle="Italic" Foreground="#FF232323"/>
-                            </Border>
-                            <StackPanel Margin="13,0,0,0">
-                                <TextBlock x:Name="_appName" Text="Kaizen" HorizontalAlignment="Left" FontSize="44" FontFamily="Bahnschrift" Margin="15,0,0,0" FontWeight="Bold"/>
-                                <TextBlock x:Name="_authorname" Text="@ArtTheCrown" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift" Margin="15,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock Text="About*" FontFamily="Bahnschrift" Margin="31,21,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
-                        <TextBlock Text="Kaizen, inspired by the Japanese philosophy of continuous improvement, is an innovative app designed to help users streamline their everyday tasks and foster personal growth. Rooted in the principles of Kaizen, which emphasize incremental progress and consistent, small improvements, the app offers a suite of tools for task management, goal setting, and habit tracking. Users can break down their objectives into manageable steps, set daily reminders, and track their progress over time. With an intuitive interface and motivational insights, Kaizen empowers individuals to enhance their productivity and achieve a balanced, fulfilling life by making steady, meaningful advancements every day. Whether it's mastering a new skill, organizing daily chores, or setting long-term goals, Kaizen provides the framework to make continuous self-improvement a seamless part of daily life." FontFamily="Bahnschrift" Margin="31,0,0,0" FontSize="14" Foreground="Black" Width="400" MaxWidth="358" TextWrapping="Wrap" FontWeight="Bold"/>
-                        <TextBlock Text="Features*" FontFamily="Bahnschrift" Margin="31,21,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
-                        <TextBlock Text="Kaizen, inspired by the Japanese philosophy of continuous improvement, is an innovative app designed to help users streamline their everyday tasks and foster personal growth. Rooted in the principles of Kaizen, which emphasize incremental progress and consistent, small improvements, the app offers a suite of tools for task management, goal setting, and habit tracking. Users can break down their objectives into manageable steps, set daily reminders, and track their progress over time. With an intuitive interface and motivational insights, Kaizen empowers individuals to enhance their productivity and achieve a balanced, fulfilling life by making steady, meaningful advancements every day. Whether it's mastering a new skill, organizing daily chores, or setting long-term goals, Kaizen provides the framework to make continuous self-improvement a seamless part of daily life." FontFamily="Bahnschrift" Margin="31,0,0,0" FontSize="14" Width="400" MaxWidth="358" TextWrapping="Wrap" FontWeight="Bold"/>
-
-                    </StackPanel>
-                    <StackPanel Width="400" >
-                        <Border x:Name="_screenshotview" Margin="0,41,0,0" Height="250" Background="#FF656565" CornerRadius="5,5,5,5">
-                            <TextBlock Text="*Preview*" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Bahnschrift" FontWeight="Bold" FontStyle="Italic" Foreground="#FF565656"/>
                         </Border>
-                        <TextBlock Text="Screenshots*" FontFamily="Bahnschrift" Margin="0,7,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="126" Height="64" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="115" Height="71" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="119" Height="64" Background="Gray" CornerRadius="5,5,5,5"/>
+                        <Border MouseLeftButtonDown="Border_MouseLeftButtonDown" Margin="0,0,5,0" Background="#FF5B92FF" Width="15">
+
+                        </Border>
+                        <Border Width="15" Background="#FF8CFF88">
+
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <Grid Width="200" HorizontalAlignment="Left">
+                    <StackPanel Width="200" Height="250" VerticalAlignment="Top" Margin="0,30,0,0">
+                        <Border x:Name="_profilePicture" Width="150" Height="150" CornerRadius="3,3,3,3" BorderThickness="3,3,3,3" BorderBrush="Black">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/Images/genesis.png"/>
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <TextBlock x:Name="_displayName" Text="Fallen" HorizontalAlignment="Left" FontSize="24" FontFamily="Bahnschrift" Margin="36,8,0,0" FontWeight="Bold"/>
+                        <TextBlock x:Name="_username" Text="@ArtTheCrown" HorizontalAlignment="Left" FontSize="11" FontFamily="Bahnschrift" Margin="34,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
+                    </StackPanel>
+                    <StackPanel Width="146" Height="276" VerticalAlignment="Bottom">
+                        <StackPanel.Effect>
+                            <DropShadowEffect/>
+                        </StackPanel.Effect>
+                        <Border Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
+                            <TextBlock Text="Account" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
+                        </Border>
+                        <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
+                            <TextBlock Text="Friends" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" Margin="30,0,0,0" FontWeight="Bold"/>
+                        </Border>
+                        <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
+                            <TextBlock Text="Contact" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
+                        </Border>
+                        <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
+                            <TextBlock Text="Settings" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
+                        </Border>
+                        <Border  Height="33" Background="#FFA4A4A4" Width="146" Margin="0,0,0,10" BorderThickness="1,1,1,1" BorderBrush="Black" >
+                            <TextBlock Text="Report" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" FontFamily="Bahnschrift" FontWeight="Bold" Margin="30,0,0,0"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+                <Grid Width="1080" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel HorizontalAlignment="Left" Width="430" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                            <StackPanel Orientation="Horizontal" Margin="30,30,0,0">
+                                <Border Width="100" Height="100" CornerRadius="3,3,3,3" BorderThickness="3,3,3,3" BorderBrush="Black" Background="#FF6D6D6D">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="16" ShadowDepth="5"/>
+                                    </Border.Effect>
+                                    <TextBlock Text="*Preview*" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Bahnschrift" FontWeight="Bold" FontStyle="Italic" Foreground="#FF232323"/>
+                                </Border>
+                                <StackPanel Margin="13,0,0,0">
+                                    <TextBlock x:Name="_appName" Text="Kaizen" HorizontalAlignment="Left" FontSize="44" FontFamily="Bahnschrift" Margin="15,0,0,0" FontWeight="Bold"/>
+                                    <TextBlock x:Name="_authorname" Text="@ArtTheCrown" HorizontalAlignment="Left" FontSize="14" FontFamily="Bahnschrift" Margin="15,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock Text="About*" FontFamily="Bahnschrift" Margin="31,21,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
+                            <TextBlock Text="Kaizen, inspired by the Japanese philosophy of continuous improvement, is an innovative app designed to help users streamline their everyday tasks and foster personal growth. Rooted in the principles of Kaizen, which emphasize incremental progress and consistent, small improvements, the app offers a suite of tools for task management, goal setting, and habit tracking. Users can break down their objectives into manageable steps, set daily reminders, and track their progress over time. With an intuitive interface and motivational insights, Kaizen empowers individuals to enhance their productivity and achieve a balanced, fulfilling life by making steady, meaningful advancements every day. Whether it's mastering a new skill, organizing daily chores, or setting long-term goals, Kaizen provides the framework to make continuous self-improvement a seamless part of daily life." FontFamily="Bahnschrift" Margin="31,0,0,0" FontSize="14" Foreground="Black" Width="400" MaxWidth="358" TextWrapping="Wrap" FontWeight="Bold"/>
+                            <TextBlock Text="Features*" FontFamily="Bahnschrift" Margin="31,21,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
+                            <TextBlock Text="Kaizen, inspired by the Japanese philosophy of continuous improvement, is an innovative app designed to help users streamline their everyday tasks and foster personal growth. Rooted in the principles of Kaizen, which emphasize incremental progress and consistent, small improvements, the app offers a suite of tools for task management, goal setting, and habit tracking. Users can break down their objectives into manageable steps, set daily reminders, and track their progress over time. With an intuitive interface and motivational insights, Kaizen empowers individuals to enhance their productivity and achieve a balanced, fulfilling life by making steady, meaningful advancements every day. Whether it's mastering a new skill, organizing daily chores, or setting long-term goals, Kaizen provides the framework to make continuous self-improvement a seamless part of daily life." FontFamily="Bahnschrift" Margin="31,0,0,0" FontSize="14" Width="400" MaxWidth="358" TextWrapping="Wrap" FontWeight="Bold"/>
+
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Border Width="116" Height="70" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="109" Height="65" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="125" Height="71" Background="Gray" CornerRadius="5,5,5,5"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
-                            <Border Width="127" Height="64" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="109" Height="65" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
-                            <Border Width="125" Height="71" Background="Gray" CornerRadius="5,5,5,5"/>
+                        <StackPanel Width="400" >
+                            <Border x:Name="_screenshotview" Margin="0,41,0,0" Height="250" Background="#FF656565" CornerRadius="5,5,5,5">
+                                <TextBlock Text="*Preview*" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" FontFamily="Bahnschrift" FontWeight="Bold" FontStyle="Italic" Foreground="#FF565656"/>
+                            </Border>
+                            <TextBlock Text="Screenshots*" FontFamily="Bahnschrift" Margin="0,7,0,0" FontWeight="Bold" FontStyle="Italic" FontSize="14" Foreground="#FF131313"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="126" Height="64" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="115" Height="71" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="119" Height="64" Background="Gray" CornerRadius="5,5,5,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                <Border Width="116" Height="70" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="109" Height="65" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="125" Height="71" Background="Gray" CornerRadius="5,5,5,5"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                <Border Width="127" Height="64" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="109" Height="65" Background="Gray" CornerRadius="5,5,5,5" Margin="0,0,3,0"/>
+                                <Border Width="125" Height="71" Background="Gray" CornerRadius="5,5,5,5"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
+                <Grid Width="200" HorizontalAlignment="Right" Height="400" VerticalAlignment="Bottom">
+                    <StackPanel VerticalAlignment="Top">
+                        <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
+
+                                </Border>
+                                <StackPanel Margin="6,6,0,0">
+                                    <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
+                                    <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
+
+                                </Border>
+                                <StackPanel Margin="6,6,0,0">
+                                    <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
+                                    <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
+
+                                </Border>
+                                <StackPanel Margin="6,6,0,0">
+                                    <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
+                                    <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
+
+                                </Border>
+                                <StackPanel Margin="6,6,0,0">
+                                    <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
+                                    <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
+
+                                </Border>
+                                <StackPanel Margin="6,6,0,0">
+                                    <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
+                                    <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
             </Grid>
-            <Grid Width="200" HorizontalAlignment="Right" Height="400" VerticalAlignment="Bottom">
-                <StackPanel VerticalAlignment="Top">
-                    <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
-
-                            </Border>
-                            <StackPanel Margin="6,6,0,0">
-                                <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
-                                <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
-
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
-
-                            </Border>
-                            <StackPanel Margin="6,6,0,0">
-                                <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
-                                <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
-
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
-
-                            </Border>
-                            <StackPanel Margin="6,6,0,0">
-                                <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
-                                <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
-
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
-
-                            </Border>
-                            <StackPanel Margin="6,6,0,0">
-                                <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
-                                <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
-
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Height="50" Width="172" Background="#FF8E8E8E" CornerRadius="3,3,3,3" Margin="0,0,0,10" >
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="40" Height="40" Margin="5,0,0,0" Background="#FF383838" CornerRadius="2,2,2,2">
-
-                            </Border>
-                            <StackPanel Margin="6,6,0,0">
-                                <Border Background="#FF4E4E4E" Width="108" Height="18" HorizontalAlignment="Left" />
-                                <Border Background="#FF4E4E4E" Width="78" Height="12" Margin="0,4,0,0" HorizontalAlignment="Left" />
-
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Grid>
-        </Grid>
+        </Border>
         <Grid x:Name="_login_register" Visibility="Visible">
             <Border x:Name="LoginForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
@@ -199,12 +209,23 @@
                             <DropShadowEffect/>
                         </PasswordBox.Effect>
                     </PasswordBox>
-                    <Border x:Name="LoginSubmit" MouseLeftButtonDown="LoginSubmit_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1" Cursor="Hand">
-                        <Border.Effect>
-                            <DropShadowEffect/>
-                        </Border.Effect>
-                        <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
-                    </Border>
+                    <Grid Height="96">
+                        <Border x:Name="LoginSubmit" MouseLeftButtonDown="LoginSubmit_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1" Cursor="Hand">
+                            <Border.Effect>
+                                <DropShadowEffect/>
+                            </Border.Effect>
+                            <TextBlock Text="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
+                        </Border>
+                        <Border x:Name="RotatingBorder" Visibility="Collapsed" Width="75" Height="75" Margin="0,26,0,0" >
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/Images/Dual Ring@1x-1.0s-200px-200px.png"/>
+                            </Border.Background>
+                            <Border.RenderTransform>
+                                <RotateTransform />
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,0.5</Border.RenderTransformOrigin>
+                        </Border>
+                    </Grid>
                     <TextBlock Text="Don't have an account yet?" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,25,0,0" FontSize="14" FontWeight="Bold"/>
                     <Border x:Name="RegisterFormButton" MouseLeftButtonDown="RegisterFormShow_MouseLeftButtonDown" Height="32" Width="67" >
                         <TextBlock Text="Register" FontFamily="Cascadia Code" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FF6D0000"/>

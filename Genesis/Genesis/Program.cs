@@ -18,12 +18,31 @@ namespace Genesis.Genesis
             await Task.Delay(TimeSpan.FromSeconds(5));
         }
 
+        public static async Task<(bool, ResponseObject?)> Login(string username, string password)
+        {
+            var request = new RequestObject
+            {
+                Request = new Request { RequestType = RequestType.Authentication },
+                Authentication = new Authentication { username = username, password = password }
+            };
+            var response = await DBEngine.HandleRequestAsync(request, RequestType.Authentication);
+
+            return response.Item1 ? (true, response.Item2) : (false, null);
+        }
+
         public static async Task<(bool, ResponseObject?)> Register(string username, string password)
         {
             var request = new RequestObject
             {
                 Request = new Request { RequestType = RequestType.Registration},
-                Registration = new Registration { username = username, password = password }
+                Registration = new Registration 
+                { 
+                    User = new User
+                    {
+                        userID = username,
+                        password = password
+                    }
+                }
             };
             var response = await DBEngine.HandleRequestAsync(request, RequestType.Registration);
 

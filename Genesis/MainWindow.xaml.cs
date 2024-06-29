@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media.Animation;
 
 
 namespace Genesis
@@ -56,11 +57,30 @@ namespace Genesis
             RegisterForm.Visibility = Visibility.Visible;
         }
 
-        private void LoginSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void LoginSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if(!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            
+            if (!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
             {
-                
+                StartRotation();
+                LoginSubmit.Visibility = Visibility.Collapsed;
+                RotatingBorder.Visibility = Visibility.Visible;
+                var result = await Program.Register(LoginUsernameBox.Text, LoginPasswordBox.Password);
+
+                if (result.Item1)
+                {
+                    _login_register.Visibility = Visibility.Collapsed;
+                    _Apps.Visibility = Visibility.Visible;
+
+                    LoginSubmit.Visibility = Visibility.Visible;
+                    RotatingBorder.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LoginSubmit.Visibility = Visibility.Visible;
+                    RotatingBorder.Visibility = Visibility.Collapsed;
+                }
+
             }else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
             {
                 _loginUsernameRequired.Visibility = Visibility.Visible;
@@ -79,6 +99,13 @@ namespace Genesis
         private void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+
+        private void StartRotation()
+        {
+            Storyboard rotateStoryboard = (Storyboard)this.Resources["RotateStoryboard"];
+            rotateStoryboard.Begin();
         }
     }
 }
