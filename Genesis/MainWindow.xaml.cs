@@ -58,7 +58,22 @@ namespace Genesis
 
         private void LoginSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            if(!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
+                
+            }else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
+                _loginUsernameRequired.Visibility = Visibility.Visible;
+                _loginPasswordRequired.Visibility = Visibility.Visible;
+            }
+            else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text))
+            {
+                _loginUsernameRequired.Visibility = Visibility.Visible;
+            }
+            else if (String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
+                _loginPasswordRequired.Visibility = Visibility.Visible;
+            }
         }
 
         private void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
