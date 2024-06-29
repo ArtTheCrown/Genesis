@@ -44,11 +44,6 @@ namespace Genesis
             MaximizeWithoutCoveringTaskbar();
         }
 
-        private void SubmitButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         private void LoginFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             LoginForm.Visibility = Visibility.Visible;
@@ -61,12 +56,12 @@ namespace Genesis
             RegisterForm.Visibility = Visibility.Visible;
         }
 
-        private void LoginButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void LoginSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
         }
 
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
         }
