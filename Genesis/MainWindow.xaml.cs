@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Animation;
+using Genesis.Genesis.Helpers;
+using System.Diagnostics;
 
 
 namespace Genesis
@@ -26,6 +28,14 @@ namespace Genesis
         public MainWindow()
         {
             InitializeComponent();
+
+            ImageBrush imageBrush = new ImageBrush();
+
+
+            imageBrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/attachments/1234945024387715155/1254695162391564290/image.png?ex=6683a7ed&is=6682566d&hm=d0048b3c9fe7936bb6af886601750e3f2685c47b9cdc8c061646ca45378b8451&", UriKind.RelativeOrAbsolute));
+
+
+           // _profilePicture.Background = imageBrush;
         }
 
         private void MaximizeWithoutCoveringTaskbar()
@@ -45,16 +55,33 @@ namespace Genesis
             MaximizeWithoutCoveringTaskbar();
         }
 
-        private void LoginFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        public async Task SetUserProfile(User user)
         {
-            LoginForm.Visibility = Visibility.Visible;
-            RegisterForm.Visibility = Visibility.Collapsed;
-        }
+            // Ensure the UI update happens on the UI thread
+            _profilePicture.Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    // Set the display name and username
+                    _displayName.Text = user.Username;
+                    _username.Text = $"@{user.UserID}";
 
-        private void RegisterFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            LoginForm.Visibility = Visibility.Collapsed;
-            RegisterForm.Visibility = Visibility.Visible;
+                    // Set the profile picture background
+                    string imageUrl = user.Pfp == "null"? "https://cdn.discordapp.com/attachments/1072177095532347512/1084459972370382899/image.png?ex=6683f90d&is=6682a78d&hm=1fd306e2cd1ba0b0579682573cd4e0deb72c22411e54166f18783e8e44bb1e50&" : user.Pfp;
+                    // Console.WriteLine(imageUrl);
+
+                    ImageBrush imageBrush = new ImageBrush();
+                    imageBrush.ImageSource = new BitmapImage(new Uri(imageUrl, UriKind.RelativeOrAbsolute));
+                    _profilePicture.Background = imageBrush;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error setting profile picture background: " + ex.Message);
+                    // Optionally, set a default background or handle the error appropriately
+                }
+            });
+            await Task.Delay(TimeSpan.FromMilliseconds(300));
         }
 
         private async void LoginSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -65,15 +92,27 @@ namespace Genesis
                 StartRotation();
                 LoginSubmit.Visibility = Visibility.Collapsed;
                 RotatingBorder.Visibility = Visibility.Visible;
-                var result = await Program.Register(LoginUsernameBox.Text, LoginPasswordBox.Password);
+                var result = await Program.Login(LoginUsernameBox.Text, LoginPasswordBox.Password);
 
-                if (result.Item1)
+                if(result.Item2 != null)
                 {
-                    _login_register.Visibility = Visibility.Collapsed;
-                    _Apps.Visibility = Visibility.Visible;
+                    if (result.Item2.Authentication.status == "Success")
+                    {
+                        var user = result.Item2.Authentication.User;
 
-                    LoginSubmit.Visibility = Visibility.Visible;
-                    RotatingBorder.Visibility = Visibility.Collapsed;
+                        await SetUserProfile(user);
+
+                        _login_register.Visibility = Visibility.Collapsed;
+                        _Apps.Visibility = Visibility.Visible;
+
+                        LoginSubmit.Visibility = Visibility.Visible;
+                        RotatingBorder.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        LoginSubmit.Visibility = Visibility.Visible;
+                        RotatingBorder.Visibility = Visibility.Collapsed;
+                    }
                 }
                 else
                 {
@@ -96,9 +135,60 @@ namespace Genesis
             }
         }
 
-        private void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private async void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
 
+                StartRotation();
+                LoginSubmit.Visibility = Visibility.Collapsed;
+                RotatingBorder.Visibility = Visibility.Visible;
+                var result = await Program.Login(LoginUsernameBox.Text, LoginPasswordBox.Password);
+
+                if (result.Item2.Authentication.status == "Success")
+                {
+                    var user = result.Item2.Authentication.User;
+
+                    SetUserProfile(user);
+
+                    _login_register.Visibility = Visibility.Collapsed;
+                    _Apps.Visibility = Visibility.Visible;
+
+                    LoginSubmit.Visibility = Visibility.Visible;
+                    RotatingBorder.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LoginSubmit.Visibility = Visibility.Visible;
+                    RotatingBorder.Visibility = Visibility.Collapsed;
+                }
+
+            }
+            else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
+                _loginUsernameRequired.Visibility = Visibility.Visible;
+                _loginPasswordRequired.Visibility = Visibility.Visible;
+            }
+            else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text))
+            {
+                _loginUsernameRequired.Visibility = Visibility.Visible;
+            }
+            else if (String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            {
+                _loginPasswordRequired.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void LoginFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Visible;
+            RegisterForm.Visibility = Visibility.Collapsed;
+        }
+
+        private void RegisterFormShow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LoginForm.Visibility = Visibility.Collapsed;
+            RegisterForm.Visibility = Visibility.Visible;
         }
 
 

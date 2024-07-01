@@ -21,8 +21,7 @@ namespace Genesis.Genesis.Helpers
     public class Authentication
     {
         public string? status { get; set; }
-        public string? username { get; set; }
-        public string? password { get; set; }
+        public User? User { get; set; }
     }
     public class Registration
     {
@@ -44,12 +43,12 @@ namespace Genesis.Genesis.Helpers
 
     public class User
     {
-        public string pfp { get; set; }
-        public string userID { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-        public string status { get; set; }
-        public string about { get; set; }
+        public string Pfp { get; set; }
+        public string UserID { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Status { get; set; }
+        public string About { get; set; }
     }
 }

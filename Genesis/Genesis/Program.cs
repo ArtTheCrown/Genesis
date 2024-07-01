@@ -23,8 +23,16 @@ namespace Genesis.Genesis
             var request = new RequestObject
             {
                 Request = new Request { RequestType = RequestType.Authentication },
-                Authentication = new Authentication { username = username, password = password }
+                Authentication = new Authentication 
+                { 
+                    User = new User 
+                    { 
+                        UserID = username,
+                        Password = password
+                    } 
+                }
             };
+
             var response = await DBEngine.HandleRequestAsync(request, RequestType.Authentication);
 
             return response.Item1 ? (true, response.Item2) : (false, null);
@@ -39,8 +47,8 @@ namespace Genesis.Genesis
                 { 
                     User = new User
                     {
-                        userID = username,
-                        password = password
+                        UserID = username,
+                        Password = password
                     }
                 }
             };

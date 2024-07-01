@@ -46,15 +46,15 @@
                     <StackPanel Width="200" Height="250" VerticalAlignment="Top" Margin="0,30,0,0">
                         <Border x:Name="_profilePicture" Width="150" Height="150" CornerRadius="3,3,3,3" BorderThickness="3,3,3,3" BorderBrush="Black">
                             <Border.Background>
-                                <ImageBrush ImageSource="/Assets/Images/genesis.png"/>
+                                <ImageBrush x:Name="_profilePictureSource" ImageSource="/Assets/Images/genesis.png"/>
                             </Border.Background>
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="10"/>
                             </Border.Effect>
                         </Border>
 
-                        <TextBlock x:Name="_displayName" Text="Fallen" HorizontalAlignment="Left" FontSize="24" FontFamily="Bahnschrift" Margin="36,8,0,0" FontWeight="Bold"/>
-                        <TextBlock x:Name="_username" Text="@ArtTheCrown" HorizontalAlignment="Left" FontSize="11" FontFamily="Bahnschrift" Margin="34,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
+                        <TextBlock x:Name="_displayName" Text="[DisplayName]" HorizontalAlignment="Left" FontSize="24" FontFamily="Bahnschrift" Margin="36,8,0,0" FontWeight="Bold"/>
+                        <TextBlock x:Name="_username" Text="@{USERHANDLE}" HorizontalAlignment="Left" FontSize="11" FontFamily="Bahnschrift" Margin="34,-5,0,0" FontWeight="Bold" Foreground="#FF585858"/>
                     </StackPanel>
                     <StackPanel Width="146" Height="276" VerticalAlignment="Bottom">
                         <StackPanel.Effect>
@@ -188,7 +188,7 @@
             </Grid>
         </Border>
         <Grid x:Name="_login_register" Visibility="Visible">
-            <Border x:Name="LoginForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
+            <Border x:Name="LoginForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
                     <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Margin="13,0,0,0" HorizontalAlignment="Left">
@@ -232,7 +232,7 @@
                     </Border>
                 </StackPanel>
             </Border>
-            <Border x:Name="RegisterForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC7C7C7" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
+            <Border x:Name="RegisterForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
                     <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
                     <TextBlock Text="Username*" Margin="0,55,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="271"/>
