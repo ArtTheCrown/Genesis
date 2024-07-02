@@ -32,10 +32,10 @@ namespace Genesis
             ImageBrush imageBrush = new ImageBrush();
 
 
-            imageBrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/attachments/1234945024387715155/1254695162391564290/image.png?ex=6683a7ed&is=6682566d&hm=d0048b3c9fe7936bb6af886601750e3f2685c47b9cdc8c061646ca45378b8451&", UriKind.RelativeOrAbsolute));
+            imageBrush.ImageSource = new BitmapImage(new Uri("https://cdn.discordapp.com/attachments/1234945024387715155/1254695162391564290/image.png?ex=6684f96d&is=6683a7ed&hm=b9c5089d3578a42be17ca11f7fa5032bdb2336fbb37511f61dd7683a398dcf44&", UriKind.RelativeOrAbsolute));
 
 
-           // _profilePicture.Background = imageBrush;
+           _profilePicture.Background = imageBrush;
         }
 
         private void MaximizeWithoutCoveringTaskbar()
@@ -68,7 +68,7 @@ namespace Genesis
 
                     // Set the profile picture background
                     string imageUrl = user.Pfp == "null"? "https://cdn.discordapp.com/attachments/1072177095532347512/1084459972370382899/image.png?ex=6683f90d&is=6682a78d&hm=1fd306e2cd1ba0b0579682573cd4e0deb72c22411e54166f18783e8e44bb1e50&" : user.Pfp;
-                    // Console.WriteLine(imageUrl);
+                    Console.WriteLine(imageUrl);
 
                     ImageBrush imageBrush = new ImageBrush();
                     imageBrush.ImageSource = new BitmapImage(new Uri(imageUrl, UriKind.RelativeOrAbsolute));
@@ -139,7 +139,6 @@ namespace Genesis
         {
             if (!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
             {
-
                 StartRotation();
                 LoginSubmit.Visibility = Visibility.Collapsed;
                 RotatingBorder.Visibility = Visibility.Visible;
@@ -164,7 +163,7 @@ namespace Genesis
                 }
 
             }
-            else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            else if (String.IsNullOrWhiteSpace(RegisterUsernameBox.Text) && String.IsNullOrWhiteSpace(RegisterPasswordBox.Password))
             {
                 _loginUsernameRequired.Visibility = Visibility.Visible;
                 _loginPasswordRequired.Visibility = Visibility.Visible;
@@ -191,11 +190,15 @@ namespace Genesis
             RegisterForm.Visibility = Visibility.Visible;
         }
 
-
         private void StartRotation()
         {
             Storyboard rotateStoryboard = (Storyboard)this.Resources["RotateStoryboard"];
             rotateStoryboard.Begin();
+        }
+
+        private void RegisterUsernameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

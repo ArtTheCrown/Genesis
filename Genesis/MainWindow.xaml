@@ -12,10 +12,14 @@
                 Storyboard.TargetName="RotatingBorder"
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
                 From="0" To="360" Duration="0:0:2" />
+            <DoubleAnimation
+                Storyboard.TargetName="RotatingBorder1"
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                From="0" To="360" Duration="0:0:2" />
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Border x:Name="_Apps" Visibility="Collapsed" BorderBrush="Black" BorderThickness="0,0,1,1">
+        <Border x:Name="_Apps" Visibility="Visible" BorderBrush="Black" BorderThickness="0,0,1,1">
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -51,6 +55,7 @@
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="10"/>
                             </Border.Effect>
+
                         </Border>
 
                         <TextBlock x:Name="_displayName" Text="[DisplayName]" HorizontalAlignment="Left" FontSize="24" FontFamily="Bahnschrift" Margin="36,8,0,0" FontWeight="Bold"/>
@@ -188,7 +193,7 @@
             </Grid>
         </Border>
         <Grid x:Name="_login_register" Visibility="Visible">
-            <Border x:Name="LoginForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4">
+            <Border x:Name="LoginForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
                     <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Margin="13,0,0,0" HorizontalAlignment="Left">
@@ -232,19 +237,73 @@
                     </Border>
                 </StackPanel>
             </Border>
-            <Border x:Name="RegisterForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="10,10,10,10" BorderBrush="Black" BorderThickness="1,1,1,4">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
-                    <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
-                    <TextBlock Text="Username*" Margin="0,55,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="271"/>
-                    <TextBox x:Name="RegisterUsername" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0"/>
-                    <TextBlock Text="Password*" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Margin="0,12,0,0" Width="271"/>
-                    <PasswordBox x:Name="RegisterPassword"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" />
-                    <Border x:Name="RegisterSubmit" MouseLeftButtonDown="RegisterSubmit_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1">
-                        <TextBlock Text="Register" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
-                    </Border>
-                    <TextBlock Text="Already have an Account?" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,25,0,0" FontSize="14" FontWeight="Bold"/>
+            <Border x:Name="RegisterForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4" Width="318" Height="583">
+                <Border.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF3E3E3E" Offset="0.004"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="577">
+                    <TextBlock Text="Genesis" FontSize="37" FontFamily="Cascadia Code" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" Margin="0,16,0,0"/>
+
+                    <TextBlock Text="Register" FontSize="26" FontFamily="Cascadia Code" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" Margin="0,35,0,0" VerticalAlignment="Bottom"/>
+                    <StackPanel Orientation="Horizontal" Margin="13,0,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Username*" Margin="0,12,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="109"/>
+                        <TextBlock Text="Required*" Visibility="Visible" x:Name="_registerUsernameRequired" FontSize="14" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="#FFD60000" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <TextBox x:Name="RegisterUsernameBox" Height="34" Width="265" TextChanged="RegisterUsernameBox_TextChanged" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" MaxLines="1" MaxLength="25">
+                        <TextBox.Effect>
+                            <DropShadowEffect/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal" Margin="13,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <TextBlock Text="Display Name*" Margin="0,13,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="147"/>
+                        <TextBlock Text="Required*" Visibility="Collapsed" x:Name="_registerDisplayNameRequired" FontSize="14" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="#FFD60000" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <TextBox x:Name="RegisterDisplayNameBox" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" MaxLines="1" MaxLength="20">
+                        <TextBox.Effect>
+                            <DropShadowEffect/>
+                        </TextBox.Effect>
+                    </TextBox>
+                    <StackPanel Orientation="Horizontal" Margin="17,0,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Password*" Margin="0,10,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="109"/>
+                        <TextBlock Text="Required*" Visibility="Collapsed" x:Name="_registerPasswordRequired" Margin="0,10,0,2" FontSize="14" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="#FFD60000" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <PasswordBox x:Name="RegisterPasswordBox" Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" MaxLength="35" >
+                        <PasswordBox.Effect>
+                            <DropShadowEffect/>
+                        </PasswordBox.Effect>
+                    </PasswordBox>
+                    <StackPanel Orientation="Horizontal" Margin="17,0,0,0" HorizontalAlignment="Left">
+                        <TextBlock Text="Confirm Password*" Margin="0,10,0,0" FontSize="18" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="Black" Width="186"/>
+                        <TextBlock Text="Required*" Visibility="Collapsed" x:Name="_registerPasswordRequiredConfirm" Margin="0,10,0,2" FontSize="14" FontFamily="Cascadia Code" FontWeight="Bold" FontStyle="Italic" Foreground="#FFD60000" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                    </StackPanel>
+                    <PasswordBox x:Name="RegisterPasswordBoxConfirm"  Height="34" Width="265" Background="DarkGray" BorderBrush="Black" VerticalContentAlignment="Center" FontFamily="Cascadia Code" FontSize="16" Padding="3,0,0,0" MaxLength="35" >
+                        <PasswordBox.Effect>
+                            <DropShadowEffect/>
+                        </PasswordBox.Effect>
+                    </PasswordBox>
+                    <Grid Height="96">
+                        <Border x:Name="RegisterSubmit" MouseLeftButtonDown="RegisterSubmit_MouseLeftButtonDown" Height="31" Width="76" Background="#FFFF9696" Margin="0,32,0,0" CornerRadius="2,2,2,2" BorderBrush="Black" BorderThickness="1,1,1,1" Cursor="Hand">
+                            <Border.Effect>
+                                <DropShadowEffect/>
+                            </Border.Effect>
+                            <TextBlock Text="Register" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Bahnschrift"/>
+                        </Border>
+                        <Border x:Name="RotatingBorder1" Visibility="Collapsed" Width="75" Height="75" Margin="0,26,0,0" >
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Assets/Images/Dual Ring@1x-1.0s-200px-200px.png"/>
+                            </Border.Background>
+                            <Border.RenderTransform>
+                                <RotateTransform />
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,0.5</Border.RenderTransformOrigin>
+                        </Border>
+                    </Grid>
+                    <TextBlock Text="Already have an account yet?" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,25,0,0" FontSize="14" FontWeight="Bold"/>
                     <Border x:Name="LoginFormButton" MouseLeftButtonDown="LoginFormShow_MouseLeftButtonDown" Height="32" Width="67" >
-                        <TextBlock Text="Login" FontFamily="Cascadia Code" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FF6D0000"/>
+                        <TextBlock Text="Signin" FontFamily="Cascadia Code" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FFFF9696"/>
                     </Border>
                 </StackPanel>
             </Border>
