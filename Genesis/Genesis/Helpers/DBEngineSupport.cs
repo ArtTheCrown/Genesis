@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using DSharpPlus.CommandsNext.Attributes;
 using Genesis.Genesis.Services;
 using Newtonsoft.Json;
 using System.Windows;
+using System.Net.Http;
 
 namespace Genesis.Genesis.Helpers
 {
@@ -112,6 +114,49 @@ namespace Genesis.Genesis.Helpers
                     return 1255056967655751790;
                 default:
                     return 1255056967655751790;
+            }
+        }
+
+        public static async Task<bool> DownloadFileAsync(string fileUrl, string fileName)
+        {
+            string tempDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp");
+            Directory.CreateDirectory(tempDirectory); // Ensure the directory exists
+            string destinationPath = Path.Combine(tempDirectory, fileName);
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // Add headers to mimic a browser request
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+                    client.DefaultRequestHeaders.Referrer = new Uri("https://discord.com"); // Set the referer to a valid Discord URL
+
+                    // Send request and get response
+                    Console.WriteLine($"Attempting to download file from URL: {fileUrl}");
+                    HttpResponseMessage response = await client.GetAsync(fileUrl);
+                    response.EnsureSuccessStatusCode(); // Throw on error code.
+
+                    // Read content as byte array and save to file
+                    byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
+                    File.WriteAllBytes(destinationPath, fileBytes);
+
+                    Console.WriteLine($"File downloaded successfully to: {destinationPath}");
+                    return true;
+                }
+                catch (HttpRequestException httpEx)
+                {
+                    Console.WriteLine($"HttpRequestException: {httpEx.Message}");
+                    if (httpEx.InnerException != null)
+                    {
+                        Console.WriteLine($"InnerException: {httpEx.InnerException.Message}");
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error downloading file: {ex.Message}");
+                    return false;
+                }
             }
         }
     }

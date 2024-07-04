@@ -19,7 +19,7 @@
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <Border x:Name="_Apps" Visibility="Visible" BorderBrush="Black" BorderThickness="0,0,1,1">
+        <Border x:Name="_Apps" Visibility="Collapsed" BorderBrush="Black" BorderThickness="0,0,1,1">
             <Grid>
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -193,7 +193,7 @@
             </Grid>
         </Border>
         <Grid x:Name="_login_register" Visibility="Visible">
-            <Border x:Name="LoginForm" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4">
+            <Border x:Name="LoginForm" Visibility="Visible" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF3E3E3E" CornerRadius="3,3,3,3" BorderBrush="Black" BorderThickness="1,1,1,4">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="400">
                     <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal" Margin="13,0,0,0" HorizontalAlignment="Left">

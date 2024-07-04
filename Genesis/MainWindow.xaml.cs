@@ -8,8 +8,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,7 +58,7 @@ namespace Genesis
         public async Task SetUserProfile(User user)
         {
             // Ensure the UI update happens on the UI thread
-            _profilePicture.Dispatcher.Invoke(() =>
+            await _profilePicture.Dispatcher.Invoke(async () =>
             {
                 try
                 {
@@ -66,14 +66,29 @@ namespace Genesis
                     _displayName.Text = user.Username;
                     _username.Text = $"@{user.UserID}";
 
-                    // Set the profile picture background
-                    string imageUrl = user.Pfp == "null"? "https://cdn.discordapp.com/attachments/1072177095532347512/1084459972370382899/image.png?ex=6683f90d&is=6682a78d&hm=1fd306e2cd1ba0b0579682573cd4e0deb72c22411e54166f18783e8e44bb1e50&" : user.Pfp;
+                    // Determine the image URL
+                    string imageUrl = user.Pfp == "null" ?
+                        "https://cdn.discordapp.com/attachments/1072177095532347512/1084459972370382899/image.png?ex=6683f90d&is=6682a78d&hm=1fd306e2cd1ba0b0579682573cd4e0deb72c22411e54166f18783e8e44bb1e50&" :
+                        user.Pfp;
                     Console.WriteLine(imageUrl);
 
-                    ImageBrush imageBrush = new ImageBrush();
-                    imageBrush.ImageSource = new BitmapImage(new Uri(imageUrl, UriKind.RelativeOrAbsolute));
-                    _profilePicture.Background = imageBrush;
+                    // Download the image
+                    string fileName = "profile_image.png";
+                    bool downloadSuccess = await DBEngineSupport.DownloadFileAsync(imageUrl, fileName);
 
+                    if (downloadSuccess)
+                    {
+                        // Set the profile picture background
+                        string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Temp", fileName);
+                        ImageBrush imageBrush = new ImageBrush();
+                        imageBrush.ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                        _profilePicture.Background = imageBrush;
+                    }
+                    else
+                    {
+                        // Optionally, handle download failure (e.g., set a default background)
+                        Debug.WriteLine("Failed to download the profile picture.");
+                    }
                 }
                 catch (Exception ex)
                 {
