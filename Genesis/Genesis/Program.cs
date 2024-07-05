@@ -26,10 +26,10 @@ namespace Genesis.Genesis
                 Authentication = new Authentication 
                 { 
                     User = new User 
-                    { 
+                    {
                         UserID = username,
                         Password = password
-                    } 
+                    }
                 }
             };
 
@@ -38,23 +38,24 @@ namespace Genesis.Genesis
             return response.Item1 ? (true, response.Item2) : (false, null);
         }
 
-        public static async Task<(bool, ResponseObject?)> Register(string username, string password)
+        public static async Task<(bool, ResponseObject?)> Register(string username, string displayName, string password)
         {
             var request = new RequestObject
             {
                 Request = new Request { RequestType = RequestType.Registration},
                 Registration = new Registration 
-                { 
+                {
                     User = new User
                     {
                         UserID = username,
+                        Username = displayName,
                         Password = password
                     }
                 }
             };
             var response = await DBEngine.HandleRequestAsync(request, RequestType.Registration);
 
-            return response.Item1? (true, response.Item2) : (false, null); 
+            return response.Item1? (true, response.Item2) : (false, null);
         }
     }
 }

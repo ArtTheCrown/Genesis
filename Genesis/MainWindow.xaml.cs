@@ -152,12 +152,16 @@ namespace Genesis
 
         private async void RegisterSubmit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(LoginUsernameBox.Text) && !String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
+            if ((!String.IsNullOrWhiteSpace(RegisterUsernameBox.Text) 
+                && !String.IsNullOrWhiteSpace(RegisterDisplayNameBox.Text) 
+                && !String.IsNullOrWhiteSpace(RegisterPasswordBox.Password)
+                && !String.IsNullOrWhiteSpace(RegisterPasswordBoxConfirm.Password)) && (RegisterPasswordBox.Password == RegisterPasswordBoxConfirm.Password))
             {
+                /*
                 StartRotation();
-                LoginSubmit.Visibility = Visibility.Collapsed;
-                RotatingBorder.Visibility = Visibility.Visible;
-                var result = await Program.Login(LoginUsernameBox.Text, LoginPasswordBox.Password);
+                RegisterSubmit.Visibility = Visibility.Collapsed;
+                RotatingBorder1.Visibility = Visibility.Visible;
+                var result = await Program.Register(RegisterUsernameBox.Text, RegisterDisplayNameBox.Text, RegisterPasswordBox.Password);
 
                 if (result.Item2.Authentication.status == "Success")
                 {
@@ -168,28 +172,38 @@ namespace Genesis
                     _login_register.Visibility = Visibility.Collapsed;
                     _Apps.Visibility = Visibility.Visible;
 
-                    LoginSubmit.Visibility = Visibility.Visible;
+                    RegisterSubmit.Visibility = Visibility.Visible;
                     RotatingBorder.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    LoginSubmit.Visibility = Visibility.Visible;
-                    RotatingBorder.Visibility = Visibility.Collapsed;
+                    RegisterSubmit.Visibility = Visibility.Visible;
+                    RotatingBorder1.Visibility = Visibility.Collapsed;
                 }
+                */
 
             }
-            else if (String.IsNullOrWhiteSpace(RegisterUsernameBox.Text) && String.IsNullOrWhiteSpace(RegisterPasswordBox.Password))
+            else 
             {
-                _loginUsernameRequired.Visibility = Visibility.Visible;
-                _loginPasswordRequired.Visibility = Visibility.Visible;
-            }
-            else if (String.IsNullOrWhiteSpace(LoginUsernameBox.Text))
-            {
-                _loginUsernameRequired.Visibility = Visibility.Visible;
-            }
-            else if (String.IsNullOrWhiteSpace(LoginPasswordBox.Password))
-            {
-                _loginPasswordRequired.Visibility = Visibility.Visible;
+                if (String.IsNullOrWhiteSpace(RegisterUsernameBox.Text)) _registerUsernameRequired.Visibility = Visibility.Visible;
+                if (String.IsNullOrWhiteSpace(RegisterDisplayNameBox.Text)) _registerDisplayNameRequired.Visibility = Visibility.Visible;
+                if (String.IsNullOrWhiteSpace(RegisterPasswordBox.Password)) 
+                {
+                    _registerPasswordRequired.Text = "Required";
+                    _registerPasswordRequired.Visibility = Visibility.Visible;
+                }
+                if (String.IsNullOrWhiteSpace(RegisterPasswordBoxConfirm.Password))
+                {
+                    _registerPasswordRequiredConfirm.Text = "Required";
+                    _registerPasswordRequiredConfirm.Visibility = Visibility.Visible;
+                }
+                if (RegisterPasswordBox.Password != RegisterPasswordBoxConfirm.Password)
+                {
+                    _registerPasswordRequired.Text = "Must match!";
+                    _registerPasswordRequiredConfirm.Text = "Must match!";
+                    _registerPasswordRequired.Visibility = Visibility.Visible;
+                    _registerPasswordRequiredConfirm.Visibility = Visibility.Visible;
+                }
             }
         }
 
