@@ -66,11 +66,34 @@ namespace Genesis.Genesis.Helpers
         /// <param name="sender">The Discord client that sent the event.</param>
         /// <param name="e">The event arguments containing readiness details.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
-        public static Task Client_Ready(DiscordClient sender, ReadyEventArgs e)
+        public static async Task Client_Ready(DiscordClient sender, ReadyEventArgs e)
         {
-            sender.UpdateStatusAsync(new DiscordActivity("雷電様の命令に", ActivityType.ListeningTo), UserStatus.DoNotDisturb);
+            await sender.UpdateStatusAsync(new DiscordActivity("雷電様の命令に", ActivityType.ListeningTo), UserStatus.DoNotDisturb);
 
-            return Task.CompletedTask;
+            var channel = await sender.GetChannelAsync(1258765765008556092); // Replace with your channel ID
+
+            // Path to the image file in the runtime directory
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "image.jpg");
+
+            // Create the message builder and attach the image
+            var message = new DiscordMessageBuilder();
+
+            using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+            {
+                message.AddFile("image.jpg", fs);
+
+                // Send the message
+                var sentMessage = await message.SendAsync(channel);
+
+                // Get the URL of the attached image
+                var attachmentUrl = sentMessage.Attachments[0].Url;
+
+                // Send the URL in the next message
+                var urlMessage = new DiscordMessageBuilder()
+                    .WithContent($"```\n{attachmentUrl}\n```");
+
+                //await urlMessage.SendAsync(channel);
+            }
         }
 
         /// <summary>
@@ -112,9 +135,24 @@ namespace Genesis.Genesis.Helpers
                     return 1255813320976498730;
                 case RequestType.Debug:
                     return 1255056967655751790;
+                case RequestType.Files:
+                    return 1258765765008556092;
                 default:
                     return 1255056967655751790;
             }
+        }
+
+        public static async Task<string> DownloadAttachmentAsync(string attachmentUrl)
+        {
+            using var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(attachmentUrl);
+            var imageBytes = await response.Content.ReadAsByteArrayAsync();
+
+            var fileName = Path.GetFileName(attachmentUrl);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"Data\Assets\downloaded_.png");
+            await File.WriteAllBytesAsync(filePath, imageBytes);
+
+            return filePath;
         }
 
         public static async Task<bool> DownloadFileAsync(string fileUrl, string fileName)

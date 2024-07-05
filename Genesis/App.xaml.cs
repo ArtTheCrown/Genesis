@@ -15,7 +15,7 @@ namespace Genesis
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
             // Show the console window
-            // ConsoleHelper.ShowConsole();
+            ConsoleHelper.ShowConsole();
             Program.Initialize();
         }
     }

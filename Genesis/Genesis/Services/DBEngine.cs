@@ -115,7 +115,7 @@ namespace Genesis.Genesis.Services
             var waitTime = TimeSpan.FromSeconds(5);
 
             var messageResult = await interactivity.WaitForMessageAsync(
-                       x => x.Channel.Id == channel.Id,
+                       x => x.Channel.Id == channel.Id && x.Author.Id == 1255058776919113728,
                        waitTime
                    );
 

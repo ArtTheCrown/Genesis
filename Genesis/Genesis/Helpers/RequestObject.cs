@@ -24,6 +24,7 @@ namespace Genesis.Genesis.Helpers
         Communication,
         Kaizen,
         Report,
-        Debug
+        Debug,
+        Files
     }
 }
