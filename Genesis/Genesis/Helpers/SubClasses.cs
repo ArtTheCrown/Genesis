@@ -15,30 +15,30 @@ namespace Genesis.Genesis.Helpers
     }
     public class Response
     {
-        public string? status { get; set; }
-        public RequestType? RequestType { get; set; }
+        public ResponseStatus Status { get; set; }
+        public RequestType RequestType { get; set; }
     }
     public class Authentication
     {
-        public string? status { get; set; }
+        public ResponseStatus Status { get; set; }
         public User? User { get; set; }
     }
     public class Registration
     {
-        public string? status { get; set; }
+        public ResponseStatus Status { get; set; }
         public User? User { get; set; }
     }
     public class Communication
     {
-        public string? status { get; set; }
+        public ResponseStatus Status { get; set; }
     }
     public class Kaizen
     {
-        public string? status { get; set; }
+        public ResponseStatus Status { get; set; }
     }
     public class Report
     {
-        public string? status { get; set; }
+        public ResponseStatus Status { get; set; }
     }
 
     public class User
@@ -50,5 +50,15 @@ namespace Genesis.Genesis.Helpers
         public string Email { get; set; }
         public string Status { get; set; }
         public string About { get; set; }
+    }
+
+    public enum ResponseStatus
+    {
+        Success,
+        Failure,
+        UnauthorizedError,
+        UnExpectedFailure,
+        AuthenticationFailed,
+        IncorrectCredentials
     }
 }

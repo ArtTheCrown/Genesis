@@ -108,7 +108,7 @@ namespace Genesis.Genesis.Helpers
 
                 if (result.Item2 != null)
                 {
-                    if (result.Item2.Authentication.status == "Success")
+                    if (result.Item2.Authentication.Status == ResponseStatus.Success)
                     {
                         var user = result.Item2.Authentication.User;
 

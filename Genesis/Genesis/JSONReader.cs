@@ -15,7 +15,7 @@ namespace Genesis.Genesis
 
         public async Task ReadJSON()
         {
-            using (StreamReader sr = new StreamReader("ArtTheCrown/VanguardSettings.json"))
+            using (StreamReader sr = new StreamReader("ArtTheCrown/Settings.json"))
             {
                 string json = await sr.ReadToEndAsync();
                 JSONStructure? data = JsonConvert.DeserializeObject<JSONStructure>(json);
