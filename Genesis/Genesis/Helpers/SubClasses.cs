@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,29 +17,55 @@ namespace Genesis.Genesis.Helpers
     public class Response
     {
         public ResponseStatus Status { get; set; }
-        public RequestType RequestType { get; set; }
+        public RequestType? RequestType { get; set; }
     }
+    public class System
+    {
+        public ResponseStatus? Status { get; set; }
+        public User? User { get; set; }
+    }
+
     public class Authentication
     {
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus? Status { get; set; }
         public User? User { get; set; }
     }
     public class Registration
     {
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus? Status { get; set; }
         public User? User { get; set; }
     }
     public class Communication
     {
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus? Status { get; set; }
+    }
+    public class Files
+    {
+        public ResponseStatus? Status { get; set; }
+        public FilesType FilesType { get; set; }
     }
     public class Kaizen
     {
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus? Status { get; set; }
     }
     public class Report
     {
-        public ResponseStatus Status { get; set; }
+        public ResponseStatus? Status { get; set; }
+    }
+    public enum ResponseStatus
+    {
+        Success,
+        Failure,
+        UnauthorizedError,
+        UnexpectedFailure,
+        AuthenticationFailed,
+        IncorrectCredentials,
+        Taken,
+        Available,
+    }
+    public enum FilesType
+    {
+        ProfilePicture
     }
 
     public class User
@@ -50,15 +77,5 @@ namespace Genesis.Genesis.Helpers
         public string Email { get; set; }
         public string Status { get; set; }
         public string About { get; set; }
-    }
-
-    public enum ResponseStatus
-    {
-        Success,
-        Failure,
-        UnauthorizedError,
-        UnExpectedFailure,
-        AuthenticationFailed,
-        IncorrectCredentials
     }
 }

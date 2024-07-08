@@ -9,9 +9,11 @@ namespace Genesis.Genesis.Helpers
     public class RequestObject
     {
         public Request? Request { get; set; }
+        public System? System { get; set; }
         public Authentication? Authentication { get; set; }
         public Registration? Registration { get; set; }
         public Communication? Communication { get; set; }
+        public Files? Files { get; set; }
         public Kaizen? Kaizen { get; set; }
         public Report? Report { get; set; }
     }
@@ -25,6 +27,6 @@ namespace Genesis.Genesis.Helpers
         Kaizen,
         Report,
         Debug,
-        Files
+        Files,
     }
 }

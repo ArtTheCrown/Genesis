@@ -121,7 +121,7 @@ namespace Genesis.Genesis.Services
 
             if (!messageResult.TimedOut)
             {
-                Debug.WriteLine(messageResult.Result.Content);
+                Console.WriteLine(messageResult.Result.Content);
 
                 try
                 {
@@ -132,7 +132,7 @@ namespace Genesis.Genesis.Services
                     return responseObject;
                 }catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.ToString());
+                    Console.WriteLine(ex.ToString());
                     return null;
                 }
             }
