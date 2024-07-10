@@ -202,7 +202,7 @@
                         <TextBlock Text=" ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝╚═╝╚══════╝" Foreground="Red" FontSize="7" FontFamily="Consolas"/>
 
                     </StackPanel>
-                    <TextBlock Text="Welcome" FontSize="28" FontFamily="Cascadia Code" HorizontalAlignment="Center" Margin="0,12,149,0" FontWeight="Bold" Foreground="White" Visibility="Collapsed"/>
+                    <Border HorizontalAlignment="Center" Margin="0,-124,149,0" Visibility="Visible" Background="Red" Width="152" Height="3"/>
 
                     <Border Margin="0,1,0,0" Height="142" Padding="0,16,0,0" Width="320" BorderThickness="1,1,1,1" BorderBrush="#FF8A8A8A" Background="#44000000">
                         <StackPanel>
