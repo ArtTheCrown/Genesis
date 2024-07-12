@@ -69,31 +69,6 @@ namespace Genesis.Genesis.Helpers
         public static async Task Client_Ready(DiscordClient sender, ReadyEventArgs e)
         {
             await sender.UpdateStatusAsync(new DiscordActivity("雷電様の命令に", ActivityType.ListeningTo), UserStatus.DoNotDisturb);
-
-            var channel = await sender.GetChannelAsync(1258765765008556092); // Replace with your channel ID
-
-            // Path to the image file in the runtime directory
-            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "image.jpg");
-
-            // Create the message builder and attach the image
-            var message = new DiscordMessageBuilder();
-
-            using (var fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
-            {
-                message.AddFile("image.jpg", fs);
-
-                // Send the message
-                var sentMessage = await message.SendAsync(channel);
-
-                // Get the URL of the attached image
-                var attachmentUrl = sentMessage.Attachments[0].Url;
-
-                // Send the URL in the next message
-                var urlMessage = new DiscordMessageBuilder()
-                    .WithContent($"```\n{attachmentUrl}\n```");
-
-                //await urlMessage.SendAsync(channel);
-            }
         }
 
         /// <summary>
